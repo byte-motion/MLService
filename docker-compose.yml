@@ -1,0 +1,19 @@
+version: "3.4"
+services:
+  ml_service:
+    restart: unless-stopped
+    build:
+      context: .
+    volumes:
+      - "~/.ml_service:/mnt/ml_service"
+    ports:
+      - 0.0.0.0:50055:50055
+    shm_size: 1g
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - capabilities: [gpu]
+    environment:
+      - NVIDIA_DRIVER_CAPABILITIES=all
+      - TZ=${TZ:-Europe/Oslo}

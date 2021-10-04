@@ -1,0 +1,40 @@
+syntax = "proto3";
+package byte_motion;
+option java_multiple_files = true;
+option java_package = "byte_motion.servers.state";
+option java_outer_classname = "MLService";
+option objc_class_prefix = "MLS";
+option csharp_namespace = "ByteMotion.Service.ML";
+
+service MLService {
+    rpc Infer(InferRequest) returns (InferResponse) {}
+    rpc Unload(UnloadRequest) returns (UnloadResponse) {}
+}
+
+message InferRequest {
+    string modelFile = 1;
+    bytes imageData = 2;
+    int32 width = 3;
+    int32 height = 4;
+    float minScore = 5;
+    repeated int32 enabledLabels = 6;
+}
+
+message InferResponse {
+    message InferenceResult {
+        int32 label = 1;
+        float score = 2;
+        repeated float bbox = 3;
+        repeated float mask = 4;
+    }
+    repeated InferenceResult result = 1;
+    repeated string errors = 99;
+}
+
+message UnloadRequest {
+    string modelFile = 1;
+}
+
+message UnloadResponse {
+    repeated string errors = 99;
+}

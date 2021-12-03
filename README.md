@@ -30,11 +30,11 @@ To run the latest build from the [bytemotion docker hub repository](https://regi
 This will work in WSL 2 with cuda enabled as well as in any linux docker
 - Windows
 ```
-sudo docker run --restart=unless-stopped --gpus all -p 0.0.0.0:50055:50055 -v /mnt/c/Users/<your-user-name>/AppData/LocalLow/Byte\ Motion/Ocellus:/mnt/ocellus -it bytemotion/ocellus_ml_service:<tag>
+sudo docker run --restart=unless-stopped --name ocellus_ml_service --gpus all -p 0.0.0.0:50055:50055 -v /mnt/c/Users/<your-user-name>/AppData/LocalLow/Byte\ Motion/Ocellus:/mnt/ocellus -it bytemotion/ocellus_ml_service:<tag>
 ```
 - Linux
 ```
-docker run -d --memory="5g" --memory-swap="5g" --restart=unless-stopped --gpus all -p 0.0.0.0:50055:50055 -v ~/.config/unity3d/Byte\ Motion/Ocellus:/mnt/ocellus -it bytemotion/ocellus_ml_service:latest
+docker run -d --memory="5g" --memory-swap="5g" --restart=unless-stopped --name ocellus_ml_service --gpus all -p 0.0.0.0:50055:50055 -v ~/.config/unity3d/Byte\ Motion/Ocellus:/mnt/ocellus -it bytemotion/ocellus_ml_service:latest
 ```
 
 This will make the service run each time docker starts or restarts automatically

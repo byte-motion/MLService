@@ -34,7 +34,7 @@ sudo docker run --restart=unless-stopped --gpus all -p 0.0.0.0:50055:50055 -v /m
 ```
 - Linux
 ```
-docker run -d --memory="4g" --memory-swap="4g" --restart=unless-stopped --gpus all -p 0.0.0.0:50055:50055 -v ~/.config/unity3d/Byte\ Motion/Ocellus:/mnt/ocellus -it bytemotion/ocellus_ml_service:latest
+docker run -d --memory="5g" --memory-swap="5g" --restart=unless-stopped --gpus all -p 0.0.0.0:50055:50055 -v ~/.config/unity3d/Byte\ Motion/Ocellus:/mnt/ocellus -it bytemotion/ocellus_ml_service:latest
 ```
 
 This will make the service run each time docker starts or restarts automatically

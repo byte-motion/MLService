@@ -1,5 +1,5 @@
 /*
- * Copyright © 2020 Byte Motion AB
+ * Copyright © 2022 Byte Motion AB
  */
 syntax = "proto3";
 package ocellus;

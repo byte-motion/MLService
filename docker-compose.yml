@@ -5,7 +5,7 @@ services:
     build:
       context: .
     volumes:
-      - ~/.config/unity3d/Byte\ Motion/Ocellus:/mnt/ocellus 
+      - "~/.config/unity3d/Byte Motion/Ocellus:/mnt/ocellus"
     ports:
       - 0.0.0.0:50055:50055
     deploy:
@@ -17,11 +17,3 @@ services:
               capabilities: [gpu]
         limits:
           memory: 4G
-
-
-  # docker run -d --memory="4g"
-  #  --memory-swap="4g"
-  #  --restart=unless-stopped
-  #  --gpus all -p 0.0.0.0:50055:50055 
-  #  -v ~/.config/unity3d/Byte\ Motion/Ocellus:/mnt/ocellus 
-  #  -it bytemotion/ocellus_ml_service:latest

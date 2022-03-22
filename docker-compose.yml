@@ -1,19 +1,16 @@
 version: "3.4"
 services:
-  ocellus_ml_service:
-    restart: always
+  ml_service:
+    restart: unless-stopped
     build:
       context: .
     volumes:
       - "~/.config/unity3d/Byte Motion/Ocellus:/mnt/ocellus"
     ports:
       - 0.0.0.0:50055:50055
+    shm_size: 1g
     deploy:
       resources:
         reservations:
           devices:
-            - driver: nvidia
-              count: 1
-              capabilities: [gpu]
-        limits:
-          memory: 4G
+            - capabilities: [gpu]

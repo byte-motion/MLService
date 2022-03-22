@@ -38,7 +38,8 @@ ENV TORCH_CUDA_ARCH_LIST="${TORCH_CUDA_ARCH_LIST}"
 
 RUN cmake -DTORCH_CUDA_ARCH_LIST=$TORCH_CUDA_ARCH_LIST .. && make -j12
 
-RUN curl -s https://packagecloud.io/install/repositories/immortal/immortal/script.deb.sh | bash
-RUN apt install immortal
+ENV CUDA_VISIBLE_DEVICES=all
+ENV NVIDIA_VISIBLE_DEVICES=all
+ENV NVIDIA_DRIVER_CAPABILITIES=all
 
-ENTRYPOINT immortal -l /var/log/ocellus_ml_service.log ./ocellus_ml_service
+CMD ["./ocellus_ml_service"]

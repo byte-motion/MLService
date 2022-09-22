@@ -57,7 +57,7 @@ else()
   # Include the gRPC's cmake build (normally grpc source code would live
   # in a git submodule called "third_party/grpc", but this example lives in
   # the same repository as gRPC sources, so we just look a few directories up)
-  add_subdirectory(/opt/grpc ${CMAKE_CURRENT_BINARY_DIR}/grpc EXCLUDE_FROM_ALL)
+  add_subdirectory(../grpc ${CMAKE_CURRENT_BINARY_DIR}/grpc EXCLUDE_FROM_ALL)
   message(STATUS "Using gRPC via add_subdirectory.")
 
   # After using add_subdirectory, we can now use the grpc targets directly from

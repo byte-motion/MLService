@@ -1,4 +1,8 @@
 {
+    "cmake.configureSettings": {
+        "CMAKE_PREFIX_PATH": "${workspaceRoot}/libtorch",
+        "CUDNN_LIBRARY_PATH": "${workspaceRoot}/libtorch/lib",
+    },
     "files.associations": {
         "array": "cpp",
         "cctype": "cpp",

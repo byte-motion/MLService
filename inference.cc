@@ -17,8 +17,6 @@
 #include <stdlib.h>
 #include <string>
 
-// #define DEBUG
-
 using namespace std;
 using namespace caffe2;
 
@@ -64,7 +62,7 @@ namespace ocellus
                     if (modelMap.count(modelFile) == 0)
                     {
                         c10::cuda::CUDACachingAllocator::emptyCache();
-                        cout << "Pytorch File: " << modelFile << endl;
+                        cout << "Pytorch File: " << modelFile << "(" << modelFileAbsPath << ")" << endl;
                         torch::autograd::AutoGradMode guard(false);
                         module = torch::jit::load(modelFileAbsPath);
                         modelMap[modelFile] = module;
@@ -78,7 +76,7 @@ namespace ocellus
                 }
 
                 auto start_time = chrono::high_resolution_clock::now();
-#ifdef DEBUG
+#ifndef NDEBUG
                 cout << "Inference requested: " << width << "x" << height << " @" << minScore << endl;
 #endif
 
@@ -115,7 +113,7 @@ namespace ocellus
 
                 int num_instances = bbox.sizes()[0];
 
-#ifdef DEBUG
+#ifndef NDEBUG
                 cout << "bbox: " << bbox.toString() << " " << bbox.sizes() << endl;
                 cout << "scores: " << scores.toString() << " " << scores.sizes() << endl;
                 cout << "labels: " << labels.toString() << " " << labels.sizes() << endl;
@@ -139,7 +137,7 @@ namespace ocellus
                     }
                     float *box = bbox_ptr + i * 4;
 
-#ifdef DEBUG
+#ifndef NDEBUG
                     // xy1, xy2, width, height
                     cout << "Prediction " << i << "/" << num_instances << ", xyxy=(";
                     cout << box[0] << ", " << box[1] << ", " << box[2] << ", " << box[3] << "); score=" << score
@@ -166,13 +164,9 @@ namespace ocellus
                         result->add_mask(mask[j]);
                     }
 
-#ifdef DEBUG
+#ifndef NDEBUG
                     // xy1, xy2, width, height
                     cout << "Mask size " << result->mask_size() << endl;
-                    // // save the 28x28 mask
-                    // cv::Mat cv_mask(28, 28, CV_32FC1);
-                    // memcpy(cv_mask.data, mask, 28 * 28 * sizeof(float));
-                    // cv::imwrite("mask" + to_string(i) + ".png", cv_mask * 255.);
 #endif
                 }
 

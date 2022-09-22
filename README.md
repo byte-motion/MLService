@@ -75,8 +75,11 @@ sudo docker push bytemotion/ocellus_ml_service
 ## Development
 
 ### Basic Dependencies
-- Install cuda (e.g. 10.2)
-- Download LibTorch from [the pytorch website](https://pytorch.org/get-started/locally/) matching your local cuda version
+- Install cuda (e.g. 11.2)
+- Install supporting [https://developer.nvidia.com/cuda-toolkit-archive](cuda toolkit)
+- Install [https://developer.nvidia.com/cudnn](cuDNN) (requires nvidia account). [https://docs.nvidia.com/deeplearning/cudnn/install-guide/index.html#installlinux](instructions)
+- Download LibTorch from [the pytorch website](https://pytorch.org/get-started/locally/) matching your local cuda version, extract, and place the entire libtorch in project root (gitignored).
+- NOTE: Models should be built using same version or torch as the one you are using for development
 - Init submodules: `git submodule init submodules/grpc` and `git submodule update submodules/grpc`
 - Checkout `v1.29.1` tag in grpc
 - Navigate to `submodules/grpc` and run `git submodule update`

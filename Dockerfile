@@ -4,7 +4,7 @@
 # version causes issues with protobuf
 FROM nvcr.io/nvidia/pytorch:21.02-py3 
 
-ENV DEBIAN_FRONTEND noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -y \
   wget cmake ninja-build protobuf-compiler g++ \
   python3-dev libgflags-dev libgoogle-glog-dev libopencv-dev \
@@ -35,11 +35,11 @@ ENV LD_LIBRARY_PATH=/root/.local/lib
 ENV CMAKE_PREFIX_PATH=/opt/conda/lib/python3.8/site-packages/torch/share/cmake/Torch/
 
 # set FORCE_CUDA because during `docker build` cuda is not accessible
-ENV FORCE_CUDA "1"
+ENV FORCE_CUDA="1"
 ARG TORCH_CUDA_ARCH_LIST="Kepler;Kepler+Tesla;Maxwell;Maxwell+Tegra;Pascal;Volta;Turing"
-ENV TORCH_CUDA_ARCH_LIST "${TORCH_CUDA_ARCH_LIST}"
-ENV NVIDIA_VISIBLE_DEVICES all
-ENV NVIDIA_DRIVER_CAPABILITIES all
+ENV TORCH_CUDA_ARCH_LIST="${TORCH_CUDA_ARCH_LIST}"
+ENV NVIDIA_VISIBLE_DEVICES=all
+ENV NVIDIA_DRIVER_CAPABILITIES=all
 ARG CMAKE_BUILD_TYPE="MinSizeRel"
 
 # Build the program

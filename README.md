@@ -2,21 +2,21 @@
 Pytorch inferenced exposed over grpc
 
 ## Image notes
-Docker image should match the cudatoolkit version running on the pc
+Docker image should match the CUDAtoolkit version running on the pc
 
-[See this page for pytorch-to-cudatoolkit matching](https://docs.nvidia.com/deeplearning/frameworks/pytorch-release-notes/index.html)
+[See this page for pytorch-to-CUDAtoolkit matching](https://docs.nvidia.com/deeplearning/frameworks/pytorch-release-notes/index.html)
 
 [Support Matrix](https://docs.nvidia.com/deeplearning/frameworks/support-matrix/index.html)
 
 ## Windows 10 Installation
-- Follow [these instructions](https://docs.nvidia.com/cuda/wsl-user-guide/index.html)
-- If the following error is encountered during [this step](https://docs.nvidia.com/cuda/wsl-user-guide/index.html#running-containers), exec this command:
+- Follow [these instructions](https://docs.nvidia.com/CUDA/wsl-user-guide/index.html)
+- If the following error is encountered during [this step](https://docs.nvidia.com/CUDA/wsl-user-guide/index.html#running-containers), exec this command:
 
 ```
 sudo mkdir /sys/fs/cgroup/systemd
 sudo mount -t cgroup -o none,name=systemd cgroup /sys/fs/cgroup/systemd
 ```
-- Installation is successful when step [6.1](https://docs.nvidia.com/cuda/wsl-user-guide/index.html#running-simple-containers) is successful!
+- Installation is successful when step [6.1](https://docs.nvidia.com/CUDA/wsl-user-guide/index.html#running-simple-containers) is successful!
 - Make sure to disable auto updates on windows drivers:
     Control Panel > System and Security > System > Advanced System Settings > Hardware > Select "No (your device might not work as expected)"
 
@@ -31,13 +31,13 @@ sudo mount -t cgroup -o none,name=systemd cgroup /sys/fs/cgroup/systemd
 
 ## Linux Installation
 - Install [nvidia docker](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker)
-- Install [cuda-drivers](https://docs.nvidia.com/datacenter/tesla/tesla-installation-notes/index.html)
+- Install [CUDA-drivers](https://docs.nvidia.com/datacenter/tesla/tesla-installation-notes/index.html)
 
 
 ### Docker Run
-MUST have cuda toolkit version compatible with the [nvcr.io/nvidia/pytorch](https://ngc.nvidia.com/catalog/containers/nvidia:pytorch) docker image container version, see [this table](https://docs.nvidia.com/deeplearning/frameworks/support-matrix/index.html) for current container version toolkit compatabilty
+MUST have CUDA toolkit version compatible with the [nvcr.io/nvidia/pytorch](https://ngc.nvidia.com/catalog/containers/nvidia:pytorch) docker image container version, see [this table](https://docs.nvidia.com/deeplearning/frameworks/support-matrix/index.html) for current container version toolkit compatabilty
 To run the latest build from the [bytemotion docker hub repository](https://registry.hub.docker.com/repository/docker/bytemotion/ocellus_ml_service)
-This will work in WSL 2 with cuda enabled as well as in any linux docker
+This will work in WSL 2 with CUDA enabled as well as in any linux docker
 - Windows
 ```
 sudo docker run --restart=unless-stopped --name ocellus_ml_service --gpus all -p 0.0.0.0:50055:50055 -v /mnt/c/Users/<your-user-name>/AppData/LocalLow/Byte\ Motion/Ocellus:/mnt/ocellus -it bytemotion/ocellus_ml_service:<tag>
@@ -75,8 +75,11 @@ sudo docker push bytemotion/ocellus_ml_service
 ## Development
 
 ### Basic Dependencies
-- Install cuda (e.g. 10.2)
-- Download LibTorch from [the pytorch website](https://pytorch.org/get-started/locally/) matching your local cuda version
+- Install CUDA (e.g. 11.2)
+- Install supporting [https://developer.nvidia.com/CUDA-toolkit-archive](CUDA toolkit)
+- Install [https://developer.nvidia.com/cudnn](cuDNN) (requires nvidia account). [https://docs.nvidia.com/deeplearning/cudnn/install-guide/index.html#installlinux](instructions)
+- Download LibTorch from [the pytorch website](https://pytorch.org/get-started/locally/) matching your local CUDA version, extract, and place the entire libtorch in project root (gitignored).
+- NOTE: Models should be built using same version or torch as the one you are using for development
 - Init submodules: `git submodule init submodules/grpc` and `git submodule update submodules/grpc`
 - Checkout `v1.29.1` tag in grpc
 - Navigate to `submodules/grpc` and run `git submodule update`

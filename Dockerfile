@@ -1,6 +1,10 @@
-FROM nvcr.io/nvidia/pytorch:21.09-py3
+# The same pytorch version should be used as
+# in the bytemotion/pytorch-gpu image, however
+# that image cannot be used since its pip torch
+# version causes issues with protobuf
+FROM nvcr.io/nvidia/pytorch:21.02-py3 
 
-ENV DEBIAN_FRONTEND noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -y \
   wget cmake ninja-build protobuf-compiler g++ \
   python3-dev libgflags-dev libgoogle-glog-dev libopencv-dev \
@@ -15,7 +19,6 @@ RUN git clone --depth 1 --branch v1.29.1 https://github.com/grpc/grpc.git
 WORKDIR /opt/grpc
 RUN git submodule update --init --recursive
 
-# build the program:
 RUN mkdir -p /opt/ml_service/build
 COPY inference.cc /opt/ml_service
 COPY inference.h /opt/ml_service
@@ -35,11 +38,13 @@ ENV CMAKE_PREFIX_PATH=/opt/conda/lib/python3.8/site-packages/torch/share/cmake/T
 ENV FORCE_CUDA="1"
 ARG TORCH_CUDA_ARCH_LIST="Kepler;Kepler+Tesla;Maxwell;Maxwell+Tegra;Pascal;Volta;Turing"
 ENV TORCH_CUDA_ARCH_LIST="${TORCH_CUDA_ARCH_LIST}"
-
-RUN cmake -DTORCH_CUDA_ARCH_LIST=$TORCH_CUDA_ARCH_LIST .. && make -j12
-
-ENV CUDA_VISIBLE_DEVICES=all
 ENV NVIDIA_VISIBLE_DEVICES=all
 ENV NVIDIA_DRIVER_CAPABILITIES=all
+ARG CMAKE_BUILD_TYPE="MinSizeRel"
+
+# Build the program
+RUN cmake -DTORCH_CUDA_ARCH_LIST=$TORCH_CUDA_ARCH_LIST \
+  -DCMAKE_BUILD_TYPE:STRING=$CMAKE_BUILD_TYPE \
+  .. && make -j
 
 CMD ["./ocellus_ml_service"]

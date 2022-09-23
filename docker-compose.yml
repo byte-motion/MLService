@@ -14,3 +14,6 @@ services:
         reservations:
           devices:
             - capabilities: [gpu]
+    environment:
+      - NVIDIA_DRIVER_CAPABILITIES=all
+      - TZ=${TZ:-Europe/Oslo}

@@ -21,10 +21,10 @@ using grpc::Status;
 
 namespace byte_motion
 {
-    class ServerImpl final
+    class AsyncServerImpl final
     {
     public:
-        ~ServerImpl()
+        ~AsyncServerImpl()
         {
             server_->Shutdown();
             // Always shutdown the completion queue after the server.

@@ -19,7 +19,7 @@ using grpc::Status;
 namespace byte_motion
 {
     // Logic and data behind the server's behavior.
-    class MLServiceImpl final : public MLService::Service
+    class SyncServiceImpl final : public MLService::Service
     {
     public:
         void Run(std::string port)

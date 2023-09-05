@@ -7,12 +7,12 @@ int main(int argc, char **argv)
 
     if (argc > 2 && argv[2] == "async")
     {
-        byte_motion::ServerImpl server;
+        byte_motion::AsyncServerImpl server;
         server.Run(port);
     }
     else
     {
-        byte_motion::MLServiceImpl service;
+        byte_motion::SyncServiceImpl service;
         service.Run(port);
     }
 

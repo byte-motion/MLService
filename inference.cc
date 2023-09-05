@@ -11,7 +11,6 @@
 #include <cstddef>
 #include <cstdio>
 #include <fstream>
-#include <iostream>
 #include <map>
 #include <mutex>
 #include <stdlib.h>
@@ -29,12 +28,6 @@ namespace byte_motion
 
         const void terminate(std::string msg)
         {
-            std::ofstream logfile;
-            const auto now = std::chrono::system_clock::now().time_since_epoch();
-            const auto ts = std::chrono::duration_cast<std::chrono::seconds>(now).count();
-            logfile.open("/mnt/ml_service/crash" + std::to_string(ts) + ".log");
-            logfile << msg;
-            logfile.close();
             cerr << msg << endl;
             exit(EXIT_FAILURE);
         }

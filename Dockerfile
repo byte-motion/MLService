@@ -1,7 +1,3 @@
-# The same pytorch version should be used as
-# in the bytemotion/pytorch-gpu image, however
-# that image cannot be used since its pip torch
-# version causes issues with protobuf
 FROM nvcr.io/nvidia/pytorch:21.02-py3 
 
 ENV DEBIAN_FRONTEND=noninteractive
@@ -24,9 +20,9 @@ COPY inference.cc /opt/ml_service
 COPY inference.h /opt/ml_service
 COPY sync_server.h /opt/ml_service
 COPY async_server.h /opt/ml_service
-COPY ocellus_ml_service.cc /opt/ml_service
+COPY ml_service.cc /opt/ml_service
 COPY CMakeLists.txt /opt/ml_service
-COPY ocellus_ml_service.proto /opt/ml_service
+COPY ml_service.proto /opt/ml_service
 
 WORKDIR /opt/ml_service/build
 ENV CPATH=/root/.local/include
@@ -47,4 +43,4 @@ RUN cmake -DTORCH_CUDA_ARCH_LIST=$TORCH_CUDA_ARCH_LIST \
   -DCMAKE_BUILD_TYPE:STRING=$CMAKE_BUILD_TYPE \
   .. && make -j
 
-CMD ["./ocellus_ml_service"]
+CMD ["./ml_service"]

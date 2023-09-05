@@ -5,7 +5,7 @@ services:
     build:
       context: .
     volumes:
-      - "~/.config/unity3d/Byte Motion/Ocellus:/mnt/ocellus"
+      - "~/.byte_motion:/mnt/ml_service"
     ports:
       - 0.0.0.0:50055:50055
     shm_size: 1g

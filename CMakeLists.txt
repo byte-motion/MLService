@@ -78,14 +78,14 @@ else()
 endif()
 
 # Proto file
-get_filename_component(oms_proto "./ocellus_ml_service.proto" ABSOLUTE)
+get_filename_component(oms_proto "./ml_service.proto" ABSOLUTE)
 get_filename_component(oms_proto_path "${oms_proto}" PATH)
 
 # Generated sources
-set(oms_proto_srcs "${CMAKE_CURRENT_BINARY_DIR}/ocellus_ml_service.pb.cc")
-set(oms_proto_hdrs "${CMAKE_CURRENT_BINARY_DIR}/ocellus_ml_service.pb.h")
-set(oms_grpc_srcs "${CMAKE_CURRENT_BINARY_DIR}/ocellus_ml_service.grpc.pb.cc")
-set(oms_grpc_hdrs "${CMAKE_CURRENT_BINARY_DIR}/ocellus_ml_service.grpc.pb.h")
+set(oms_proto_srcs "${CMAKE_CURRENT_BINARY_DIR}/ml_service.pb.cc")
+set(oms_proto_hdrs "${CMAKE_CURRENT_BINARY_DIR}/ml_service.pb.h")
+set(oms_grpc_srcs "${CMAKE_CURRENT_BINARY_DIR}/ml_service.grpc.pb.cc")
+set(oms_grpc_hdrs "${CMAKE_CURRENT_BINARY_DIR}/ml_service.grpc.pb.h")
 
 add_custom_command(
       OUTPUT "${oms_proto_srcs}" "${oms_proto_hdrs}" "${oms_grpc_srcs}" "${oms_grpc_hdrs}"
@@ -102,7 +102,7 @@ include_directories("${CMAKE_CURRENT_BINARY_DIR}")
 
 # Targets greeter_[async_](client|server)
 foreach(_target
-    ocellus_ml_service)
+    ml_service)
   add_executable(${_target} "${_target}.cc" "sync_server.h" "async_server.h" "inference.h" "inference.cc"
     ${oms_proto_srcs}
     ${oms_grpc_srcs})

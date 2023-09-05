@@ -36,15 +36,15 @@ sudo mount -t cgroup -o none,name=systemd cgroup /sys/fs/cgroup/systemd
 
 ### Docker Run
 MUST have CUDA toolkit version compatible with the [nvcr.io/nvidia/pytorch](https://ngc.nvidia.com/catalog/containers/nvidia:pytorch) docker image container version, see [this table](https://docs.nvidia.com/deeplearning/frameworks/support-matrix/index.html) for current container version toolkit compatabilty
-To run the latest build from the [bytemotion docker hub repository](https://registry.hub.docker.com/repository/docker/bytemotion/ocellus_ml_service)
+To run the latest build from the [bytemotion docker hub repository](https://registry.hub.docker.com/repository/docker/bytemotion/ml_service)
 This will work in WSL 2 with CUDA enabled as well as in any linux docker
 - Windows
 ```
-sudo docker run --restart=unless-stopped --name ocellus_ml_service --gpus all -p 0.0.0.0:50055:50055 -v /mnt/c/Users/<your-user-name>/AppData/LocalLow/Byte\ Motion/Ocellus:/mnt/ocellus -it bytemotion/ocellus_ml_service:<tag>
+sudo docker run --restart=unless-stopped --name ml_service --gpus all -p 0.0.0.0:50055:50055 -v /mnt/c/Users/<your-user-name>/AppData/LocalLow/ml_service:/mnt/ml_service -it bytemotion/byte_motion:<tag>
 ```
 - Linux
 ```
-docker run -d --memory="5g" --memory-swap="5g" --restart=unless-stopped --name ocellus_ml_service --gpus all -p 0.0.0.0:50055:50055 -v ~/.config/unity3d/Byte\ Motion/Ocellus:/mnt/ocellus -it bytemotion/ocellus_ml_service:latest
+docker run -d --memory="5g" --memory-swap="5g" --restart=unless-stopped --name ml_service --gpus all -p 0.0.0.0:50055:50055 -v ~/.ml_service:/mnt/ml_service -it bytemotion/byte_motion:latest
 ```
 
 This will make the service run each time docker starts or restarts automatically
@@ -63,14 +63,8 @@ wsl echo <sudo-password> ^| sudo -S service docker start
 ### Docker Build in WSL Ubuntu
 Start a WSL2 terminal and navigate to the ./MLService directory and execute:
 ```
-sudo docker build -t bytemotion/ocellus_ml_service:latest -t bytemotion/ocellus_ml_service:<version> .
+sudo docker build -t bytemotion/ml_service:latest -t bytemotion/ml_service:<version> .
 ```
-To push this to docker hub:
-```
-sudo docker login --username bytemotion
-sudo docker push bytemotion/ocellus_ml_service
-```
-- Note that `bytemotion/ocellus_ml_service` should be incremented with a version number like so: `bytemotion/ocellus_ml_service:v0` where `v0` is incremented, `v1`, `v2` etc
 
 ## Development
 

@@ -1,15 +1,12 @@
-/*
- * Copyright © 2022 Byte Motion AB
- */
 syntax = "proto3";
-package ocellus;
+package byte_motion;
 option java_multiple_files = true;
-option java_package = "ocellus.servers.state";
-option java_outer_classname = "OcellusMLService";
-option objc_class_prefix = "OMLS";
-option csharp_namespace = "Ocellus.Service.ML";
+option java_package = "byte_motion.servers.state";
+option java_outer_classname = "MLService";
+option objc_class_prefix = "MLS";
+option csharp_namespace = "ByteMotion.Service.ML";
 
-service OcellusMLService {
+service MLService {
     rpc Infer(InferRequest) returns (InferResponse) {}
     rpc Unload(UnloadRequest) returns (UnloadResponse) {}
 }

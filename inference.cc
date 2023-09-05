@@ -20,7 +20,7 @@
 using namespace std;
 using namespace caffe2;
 
-namespace ocellus
+namespace byte_motion
 {
     namespace inference
     {
@@ -32,7 +32,7 @@ namespace ocellus
             std::ofstream logfile;
             const auto now = std::chrono::system_clock::now().time_since_epoch();
             const auto ts = std::chrono::duration_cast<std::chrono::seconds>(now).count();
-            logfile.open("/mnt/ocellus/ocellus_ml_crash" + std::to_string(ts) + ".log");
+            logfile.open("/mnt/ml_service/crash" + std::to_string(ts) + ".log");
             logfile << msg;
             logfile.close();
             cerr << msg << endl;
@@ -50,7 +50,7 @@ namespace ocellus
 
         const string Infer(const string &modelFileAbsPath, const char *matData, const int width, const int height,
                            const float minScore, const google::protobuf::RepeatedField<google::protobuf::int32> &enabledLabels,
-                           ocellus::InferResponse *reply)
+                           byte_motion::InferResponse *reply)
         {
             try
             {
@@ -219,4 +219,4 @@ namespace ocellus
             return "";
         }
     } // namespace inference
-} // namespace ocellus
+} // namespace byte_motion

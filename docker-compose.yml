@@ -5,7 +5,7 @@ services:
     build:
       context: .
     volumes:
-      - "~/.byte_motion:/mnt/ml_service"
+      - "~/.ml_service:/mnt/ml_service"
     ports:
       - 0.0.0.0:50055:50055
     shm_size: 1g

@@ -40,11 +40,11 @@ To run the latest build from the [bytemotion docker hub repository](https://regi
 This will work in WSL 2 with CUDA enabled as well as in any linux docker
 - Windows
 ```
-sudo docker run --restart=unless-stopped --name ml_service --gpus all -p 0.0.0.0:50055:50055 -v /mnt/c/Users/<your-user-name>/AppData/LocalLow/ml_service:/mnt/ml_service -it bytemotion/byte_motion:<tag>
+sudo docker run --restart=unless-stopped --name ml_service --gpus all -p 0.0.0.0:50055:50055 -v /mnt/c/Users/<your-user-name>/AppData/LocalLow/ml_service:/mnt/ml_service -it bytemotion/ml_service:<tag>
 ```
 - Linux
 ```
-docker run -d --memory="5g" --memory-swap="5g" --restart=unless-stopped --name ml_service --gpus all -p 0.0.0.0:50055:50055 -v ~/.ml_service:/mnt/ml_service -it bytemotion/byte_motion:latest
+docker run -d --memory="5g" --memory-swap="5g" --restart=unless-stopped --name ml_service --gpus all -p 0.0.0.0:50055:50055 -v ~/.ml_service:/mnt/ml_service -it bytemotion/ml_service:latest
 ```
 
 This will make the service run each time docker starts or restarts automatically
